@@ -3,41 +3,41 @@ import Galaxy from "@/components/effects/Galaxy";
 
 const Background = () => {
 	return (
-		<>
-			<div className="w-full h-screen absolute inset-0">
+		<div className="z-0 w-full h-screen absolute">
+			<div className="absolute inset-0">
 				<LightPillar
 					topColor="#5227FF"
 					bottomColor="#FF9FFC"
 					intensity={1}
 					rotationSpeed={0.1}
-					glowAmount={0.002}
-					pillarWidth={5}
+					glowAmount={0.005}
+					pillarWidth={3}
 					pillarHeight={0.4}
-					noiseIntensity={0.5}
+					noiseIntensity={0.1}
 					pillarRotation={25}
 					interactive={false}
 					mixBlendMode="screen"
-					quality="high"
+					quality="medium"
 				/>
 			</div>
 
-			<div className="w-full h-screen absolute inset-0 z-10">
+			<div className="absolute inset-0">
 				<Galaxy
 					mouseRepulsion={false}
-					mouseInteraction={false}
-					density={8}
-					glowIntensity={0.7}
-					saturation={0}
-					hueShift={140}
-					twinkleIntensity={0.1}
+					mouseInteraction={true}
+					density={3}
+					glowIntensity={0.8}
+					twinkleIntensity={1}
+					saturation={1}
+					hueShift={220}
 					rotationSpeed={0}
 					autoCenterRepulsion={0}
-					starSpeed={0}
-					speed={0.1}
+					starSpeed={1}
+					speed={0.01}
 					transparent
 				/>
 			</div>
-		</>
+		</div>
 	);
 };
 
