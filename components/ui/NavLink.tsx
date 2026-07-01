@@ -7,7 +7,7 @@ const NavLink = ({ label }: NavLinkProps) => {
 		<button
 			type="button"
 			className="hover:bg-white hover:text-mauve-900 hover:cursor-pointer
-                        text-3xl transition ease-in w-fit p-1"
+                        text-4xl transition ease-in w-fit p-1"
 		>
 			{label}
 		</button>
