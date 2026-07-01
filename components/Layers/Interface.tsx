@@ -1,8 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+
 import NavLink from "../ui/NavLink";
+
+gsap.registerPlugin(useGSAP);
 
 const Interface = () => {
 	const [time, setTime] = useState("");
+
+	const headerRef = useRef(null);
+	const navRef = useRef(null);
+	const locationRef = useRef(null);
+
+	useGSAP(() => {
+		gsap.from(headerRef.current, { x: -20, y: -20, opacity: 0, delay: 0.5 });
+		gsap.from(locationRef.current, { x: 20, y: -20, opacity: 0, delay: 0.5 });
+		gsap.from(navRef.current, { x: -20, y: 20, opacity: 0, delay: 0.5 });
+	});
 
 	useEffect(() => {
 		const update = () => {
@@ -19,14 +34,21 @@ const Interface = () => {
 	}, []);
 
 	return (
-		<div className="z-40 text-white p-5 absolute select-none">
-			<div className="p-1">
+		<div className="z-40 text-white p-5 absolute inset-0 select-none pointer-events-none">
+			<div ref={headerRef} className="absolute top-5 left-5">
 				<p className="text-8xl">Hubert Yu</p>
+				<p className="text-4xl">Software Engineer</p>
+			</div>
+
+			<div ref={locationRef} className="absolute top-5 right-5 flex flex-col text-right">
 				<p className="text-4xl">The Veloris Nebula</p>
 				<p className="text-3xl">{time}</p>
 			</div>
 
-			<nav className="flex flex-col gap-5 mt-30">
+			<nav
+				ref={navRef}
+				className="absolute bottom-5 left-5 flex flex-col gap-5 pointer-events-auto"
+			>
 				<NavLink label="About Me" />
 				<NavLink label="Experience" />
 				<NavLink label="Projects" />

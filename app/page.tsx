@@ -5,7 +5,7 @@ import Interface from "@/components/Layers/Interface";
 
 export default function Home() {
 	return (
-		<main className="w-full relative">
+		<main className="w-full h-screen relative">
 			<Background />
 			<Interface />
 		</main>

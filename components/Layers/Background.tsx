@@ -3,7 +3,7 @@ import Galaxy from "@/components/effects/Galaxy";
 
 const Background = () => {
 	return (
-		<div className="z-0 w-full h-screen absolute">
+		<div className="z-0 w-screen h-screen absolute">
 			<div className="absolute inset-0">
 				<LightPillar
 					topColor="#5227FF"
