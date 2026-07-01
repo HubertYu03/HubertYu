@@ -1,6 +1,7 @@
 import LightPillar from "@/components/effects/LightPillar";
 import Galaxy from "@/components/effects/Galaxy";
-import { getRandomHexColor, getRandomIntInclusive } from "@/lib/utils";
+import { getRandomIntInclusive } from "@/lib/utils";
+import { useBackground } from "@/lib/store/BackgroundStore";
 
 const Background = () => {
 	const nebulaRotation = getRandomIntInclusive(-50, 50);
@@ -8,12 +9,15 @@ const Background = () => {
 	const pillarWidth = getRandomIntInclusive(1, 10);
 	const pillarHeight = Math.max(0.1, Math.random());
 
+	const nebulaTopColor = useBackground((state) => state.nebulaTopColor);
+	const nebulaBottomColor = useBackground((state) => state.nebulaBottomColor);
+
 	return (
 		<div className="z-0 w-screen h-screen absolute">
 			<div className="absolute inset-0">
 				<LightPillar
-					topColor={getRandomHexColor()}
-					bottomColor={getRandomHexColor()}
+					topColor={nebulaTopColor}
+					bottomColor={nebulaBottomColor}
 					intensity={1}
 					rotationSpeed={0.1}
 					glowAmount={0.003}
