@@ -1,17 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import useSound from "use-sound";
 
 import NavLink from "../ui/NavLink";
-import { nebulae } from "@/lib/constants";
-import { getRandomNebula } from "@/lib/utils";
-import { Eye, Volume2, VolumeOff } from "lucide-react";
+import { Volume2, VolumeOff } from "lucide-react";
 
 gsap.registerPlugin(useGSAP);
 
 const Interface = () => {
-	const [nebula, setNebula] = useState(nebulae[0]);
 	const [start, setStart] = useState(false);
 	const [musicPlaying, setMusicPlaying] = useState(true);
 
@@ -22,10 +19,6 @@ const Interface = () => {
 	});
 
 	const blackScreenRef = useRef(null);
-
-	useEffect(() => {
-		setNebula(getRandomNebula());
-	}, []);
 
 	const handleEnter = () => {
 		play();
