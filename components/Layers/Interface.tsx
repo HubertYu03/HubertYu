@@ -3,11 +3,14 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 
 import NavLink from "../ui/NavLink";
+import { nebulae } from "@/lib/constants";
+import { getRandomNebula } from "@/lib/utils";
 
 gsap.registerPlugin(useGSAP);
 
 const Interface = () => {
 	const [time, setTime] = useState("");
+	const [nebula, setNebula] = useState(nebulae[0]);
 
 	const headerRef = useRef(null);
 	const navRef = useRef(null);
@@ -18,6 +21,10 @@ const Interface = () => {
 		gsap.from(locationRef.current, { x: 20, y: -20, opacity: 0, delay: 0.5 });
 		gsap.from(navRef.current, { x: -20, y: 20, opacity: 0, delay: 0.5 });
 	});
+
+	useEffect(() => {
+		setNebula(getRandomNebula());
+	}, []);
 
 	useEffect(() => {
 		const update = () => {
@@ -41,8 +48,9 @@ const Interface = () => {
 			</div>
 
 			<div ref={locationRef} className="absolute top-5 right-5 flex flex-col text-right">
-				<p className="text-4xl">The Veloris Nebula</p>
-				<p className="text-3xl">{time}</p>
+				<p className="text-4xl">{nebula.name}</p>
+				<p className="text-3xl">{nebula.id}</p>
+				<p className="text-5xl mt-5">{time}</p>
 			</div>
 
 			<nav
