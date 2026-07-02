@@ -76,8 +76,8 @@ const Interface = () => {
 			setHideContent(false);
 		}
 
-		if (!contentView) removeContent();
-	}, [contentView, contextSafe, setContent]);
+		if (!contentView && !hideContent) removeContent();
+	}, [contentView, hideContent, contextSafe, setContent]);
 
 	const handleEnter = () => {
 		play();

@@ -10,7 +10,7 @@ const AboutView = () => {
 				width={400}
 				height={300}
 				alt="Photo of Hubert Yu"
-				className="mx-auto"
+				className="mx-auto w-auto h-auto"
 			/>
 
 			<p>
