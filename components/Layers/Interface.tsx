@@ -5,12 +5,15 @@ import useSound from "use-sound";
 
 import NavLink from "../ui/NavLink";
 import { Volume2, VolumeOff } from "lucide-react";
+import { useContent } from "@/lib/store/ContentStore";
 
 gsap.registerPlugin(useGSAP);
 
 const Interface = () => {
 	const [start, setStart] = useState(false);
 	const [musicPlaying, setMusicPlaying] = useState(true);
+	const contentView = useContent((state) => state.contentView);
+	const currentContent = useContent((state) => state.currentContent);
 
 	const [play, { pause }] = useSound("/sounds/ambience.mp3", {
 		loop: true,
@@ -18,7 +21,14 @@ const Interface = () => {
 		playbackRate: 0.5,
 	});
 
+	const container = useRef(null);
 	const blackScreenRef = useRef(null);
+
+	useGSAP(() => {
+		if (contentView) {
+			gsap.fromTo(".animate-content", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.5 });
+		}
+	}, [contentView]);
 
 	const handleEnter = () => {
 		play();
@@ -57,7 +67,7 @@ const Interface = () => {
 	};
 
 	return (
-		<div className="z-40 text-white">
+		<div ref={container} className="z-40 text-white">
 			{!start && (
 				<div
 					ref={blackScreenRef}
@@ -87,21 +97,27 @@ const Interface = () => {
 				</div>
 
 				<div className="animate-header absolute top-5 left-5 opacity-0">
-					<p className="text-8xl">Hubert Yu</p>
+					<p className="text-9xl">Hubert Yu</p>
 					<p className="text-4xl">Software Engineer</p>
 				</div>
 
 				<nav className="animate-nav absolute bottom-5 left-5 flex flex-col gap-5 pointer-events-auto opacity-0">
-					<NavLink label="About Me" />
-					<NavLink label="Experience" />
-					<NavLink label="Projects" />
-					<NavLink label="Contact" />
+					<NavLink label="About Me" contentId="about_me" />
+					<NavLink label="Experience" contentId="experience" />
+					<NavLink label="Projects" contentId="projects" />
+					<NavLink label="Contact" contentId="contact" />
 				</nav>
 
 				<div className="animate-credits absolute bottom-5 right-5 text-right pointer-events-auto opacity-0">
 					<p>Created by Hubert Yu</p>
-					<p>Psalm 19:1</p>
+					<p>Psalms 19:1</p>
 				</div>
+
+				{contentView && (
+					<div className="animate-content flex justify-center items-center h-screen">
+						{currentContent}
+					</div>
+				)}
 			</div>
 		</div>
 	);

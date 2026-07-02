@@ -1,5 +1,4 @@
 import { Canvas } from "@react-three/fiber";
-import { GizmoHelper, GizmoViewport } from "@react-three/drei";
 import * as THREE from "three";
 import Planet from "../models/Planet";
 import { useBackground } from "@/lib/store/BackgroundStore";
@@ -15,10 +14,6 @@ const Experience = () => {
 			<Canvas>
 				<directionalLight position={[x, y, z]} intensity={5} color={nebulaBottomColor} />
 				<Planet />
-
-				<GizmoHelper alignment="bottom-right" margin={[80, 80]}>
-					<GizmoViewport axisColors={["#ff3600", "#009900", "#0033ff"]} labelColor="white" />
-				</GizmoHelper>
 			</Canvas>
 		</div>
 	);
