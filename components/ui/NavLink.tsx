@@ -1,4 +1,5 @@
 import { useContent } from "@/lib/store/ContentStore";
+import { useShallow } from "zustand/react/shallow";
 
 type NavLinkProps = {
 	label: string;
@@ -6,11 +7,16 @@ type NavLinkProps = {
 };
 
 const NavLink = ({ label, contentId }: NavLinkProps) => {
-	const switchContentView = useContent((state) => state.switchContentView);
-	const setContent = useContent((state) => state.setContent);
+	const { contentView, switchContentView, setContent } = useContent(
+		useShallow((state) => ({
+			contentView: state.contentView,
+			switchContentView: state.switchContentView,
+			setContent: state.setContent,
+		})),
+	);
 
 	const handleClick = () => {
-		switchContentView();
+		if (!contentView) switchContentView();
 		setContent(contentId);
 	};
 

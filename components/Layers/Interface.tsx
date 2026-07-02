@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import useSound from "use-sound";
@@ -6,14 +6,18 @@ import useSound from "use-sound";
 import NavLink from "../ui/NavLink";
 import { Volume2, VolumeOff } from "lucide-react";
 import { useContent } from "@/lib/store/ContentStore";
+import ContentView from "../ui/ContentView";
 
 gsap.registerPlugin(useGSAP);
 
 const Interface = () => {
 	const [start, setStart] = useState(false);
 	const [musicPlaying, setMusicPlaying] = useState(true);
+
+	const [hideHeader, setHideHeader] = useState(false);
+	const [hideContent, setHideContent] = useState(true);
+
 	const contentView = useContent((state) => state.contentView);
-	const currentContent = useContent((state) => state.currentContent);
 
 	const [play, { pause }] = useSound("/sounds/ambience.mp3", {
 		loop: true,
@@ -24,11 +28,52 @@ const Interface = () => {
 	const container = useRef(null);
 	const blackScreenRef = useRef(null);
 
-	useGSAP(() => {
+	const { contextSafe } = useGSAP(
+		() => {
+			if (contentView) {
+				setTimeout(() => {
+					gsap.from(".animate-content", { opacity: 0, y: -20, duration: 0.5 });
+				}, 0);
+			}
+
+			if (!contentView && start) {
+				setHideHeader(false);
+				setTimeout(() => {
+					gsap.to(".animate-header", {
+						opacity: 1,
+						duration: 0.3,
+					});
+				}, 0);
+			}
+		},
+		{ dependencies: [contentView], scope: container },
+	);
+
+	useEffect(() => {
+		const removeHeader = contextSafe(() => {
+			gsap.to(".animate-header", {
+				opacity: 0,
+				duration: 0.3,
+				onComplete: () => setHideHeader(true),
+			});
+		});
+
+		const removeContent = contextSafe(() => {
+			gsap.to(".animate-content", {
+				opacity: 0,
+				y: -20,
+				duration: 0.1,
+				onComplete: () => setHideContent(true),
+			});
+		});
+
 		if (contentView) {
-			gsap.fromTo(".animate-content", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.5 });
+			removeHeader();
+			setHideContent(false);
 		}
-	}, [contentView]);
+
+		if (!contentView) removeContent();
+	}, [contentView, contextSafe]);
 
 	const handleEnter = () => {
 		play();
@@ -78,6 +123,7 @@ const Interface = () => {
 						className="hover:bg-white hover:text-mauve-900 hover:cursor-pointer
                         text-3xl transition ease-in w-fit p-1"
 						onClick={handleEnter}
+						disabled={start}
 					>
 						Enter
 					</button>
@@ -96,10 +142,12 @@ const Interface = () => {
 					</button>
 				</div>
 
-				<div className="animate-header absolute top-5 left-5 opacity-0">
-					<p className="text-9xl">Hubert Yu</p>
-					<p className="text-4xl">Software Engineer</p>
-				</div>
+				{!hideHeader && (
+					<div className="animate-header absolute top-5 left-5 opacity-0">
+						<p className="text-9xl">Hubert Yu</p>
+						<p className="text-4xl">Software Engineer</p>
+					</div>
+				)}
 
 				<nav className="animate-nav absolute bottom-5 left-5 flex flex-col gap-5 pointer-events-auto opacity-0">
 					<NavLink label="About Me" contentId="about_me" />
@@ -113,9 +161,9 @@ const Interface = () => {
 					<p>Psalms 19:1</p>
 				</div>
 
-				{contentView && (
-					<div className="animate-content flex justify-center items-center h-screen">
-						{currentContent}
+				{!hideContent && (
+					<div className="animate-content flex justify-center items-center">
+						<ContentView />
 					</div>
 				)}
 			</div>
