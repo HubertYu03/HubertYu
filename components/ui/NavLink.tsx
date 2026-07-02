@@ -7,11 +7,12 @@ type NavLinkProps = {
 };
 
 const NavLink = ({ label, contentId }: NavLinkProps) => {
-	const { contentView, switchContentView, setContent } = useContent(
+	const { contentView, switchContentView, setContent, currentContent } = useContent(
 		useShallow((state) => ({
 			contentView: state.contentView,
 			switchContentView: state.switchContentView,
 			setContent: state.setContent,
+			currentContent: state.currentContent,
 		})),
 	);
 
@@ -24,8 +25,8 @@ const NavLink = ({ label, contentId }: NavLinkProps) => {
 		<button
 			type="button"
 			onClick={handleClick}
-			className="hover:bg-white hover:text-mauve-900 hover:cursor-pointer
-                        text-4xl transition ease-in w-fit p-1"
+			className={`hover:bg-white hover:text-mauve-900 hover:cursor-pointer text-4xl transition 
+						ease-in w-fit p-1 ${contentId === currentContent && "bg-white text-mauve-900"}`}
 		>
 			{label}
 		</button>

@@ -1,12 +1,34 @@
+import { useRef } from "react";
 import { useContent } from "@/lib/store/ContentStore";
 import { X } from "lucide-react";
-
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import AboutView from "./content_views/AboutView";
 import ExperienceView from "./content_views/ExperienceView";
+import ProjectsView from "./content_views/ProjectsView";
+import ContactView from "./content_views/ContactView";
 
 const ContentView = () => {
+	const contentRef = useRef<HTMLDivElement>(null);
 	const contentId = useContent((state) => state.currentContent);
 	const switchContentView = useContent((state) => state.switchContentView);
+	const setContent = useContent((state) => state.setContent);
+
+	useGSAP(
+		() => {
+			gsap.fromTo(
+				contentRef.current,
+				{ opacity: 0 },
+				{ opacity: 1, duration: 0.3, ease: "power1.out" },
+			);
+		},
+		{ dependencies: [contentId], revertOnUpdate: true },
+	);
+
+	const handleClose = () => {
+		switchContentView();
+		setContent("");
+	};
 
 	return (
 		<div className="border-2 bg-mauve-900/75 p-5 w-3xl pointer-events-auto">
@@ -14,13 +36,17 @@ const ContentView = () => {
 				<button
 					type="button"
 					className="hover:bg-white hover:text-mauve-900 hover:cursor-pointer transition ease-in"
-					onClick={switchContentView}
+					onClick={handleClose}
 				>
 					<X />
 				</button>
 			</div>
-			{contentId === "about_me" && <AboutView />}
-			{contentId === "experience" && <ExperienceView />}
+			<div ref={contentRef}>
+				{contentId === "about_me" && <AboutView />}
+				{contentId === "experience" && <ExperienceView />}
+				{contentId === "projects" && <ProjectsView />}
+				{contentId === "contact" && <ContactView />}
+			</div>
 		</div>
 	);
 };
