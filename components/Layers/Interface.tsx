@@ -18,6 +18,7 @@ const Interface = () => {
 	const [hideContent, setHideContent] = useState(true);
 
 	const contentView = useContent((state) => state.contentView);
+	const setContent = useContent((state) => state.setContent);
 
 	const [play, { pause }] = useSound("/sounds/ambience.mp3", {
 		loop: true,
@@ -62,8 +63,11 @@ const Interface = () => {
 			gsap.to(".animate-content", {
 				opacity: 0,
 				y: -20,
-				duration: 0.1,
-				onComplete: () => setHideContent(true),
+				duration: 0.3,
+				onComplete: () => {
+					setHideContent(true);
+					setContent("");
+				},
 			});
 		});
 
@@ -73,7 +77,7 @@ const Interface = () => {
 		}
 
 		if (!contentView) removeContent();
-	}, [contentView, contextSafe]);
+	}, [contentView, contextSafe, setContent]);
 
 	const handleEnter = () => {
 		play();

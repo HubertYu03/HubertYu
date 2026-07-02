@@ -12,7 +12,6 @@ const ContentView = () => {
 	const contentRef = useRef<HTMLDivElement>(null);
 	const contentId = useContent((state) => state.currentContent);
 	const switchContentView = useContent((state) => state.switchContentView);
-	const setContent = useContent((state) => state.setContent);
 
 	useGSAP(
 		() => {
@@ -27,7 +26,6 @@ const ContentView = () => {
 
 	const handleClose = () => {
 		switchContentView();
-		setContent("");
 	};
 
 	return (
