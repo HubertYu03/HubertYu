@@ -33,7 +33,7 @@ const Interface = () => {
 		() => {
 			if (contentView) {
 				setTimeout(() => {
-					gsap.from(".animate-content", { opacity: 0, y: -20, duration: 0.5 });
+					gsap.from(".animate-content", { opacity: 0, y: 20, duration: 0.5 });
 				}, 0);
 			}
 
@@ -62,7 +62,7 @@ const Interface = () => {
 		const removeContent = contextSafe(() => {
 			gsap.to(".animate-content", {
 				opacity: 0,
-				y: -20,
+				y: 20,
 				duration: 0.3,
 				onComplete: () => {
 					setHideContent(true);
@@ -89,20 +89,8 @@ const Interface = () => {
 			display: "none",
 			onComplete: () => setStart(true),
 		})
-			.fromTo(
-				".animate-header",
-				{ x: -20, y: -20 },
-				{ x: 0, y: 0, opacity: 1, duration: 0.6 },
-				"+=0.5",
-			)
-			.fromTo(".animate-nav", { x: -20, y: 20 }, { x: 0, y: 0, opacity: 1, duration: 0.6 }, "<")
-			.fromTo(
-				".animate-music-toggle",
-				{ x: 20, y: -20 },
-				{ x: 0, y: 0, opacity: 1, duration: 0.6 },
-				"<",
-			)
-			.fromTo(".animate-credits", { x: 20, y: 20 }, { x: 0, y: 0, opacity: 1, duration: 0.6 }, "<");
+			.to(".animate-header", { opacity: 1, duration: 0.6 }, "+=0.5")
+			.fromTo(".animate-nav", { y: -20 }, { x: 0, y: 0, opacity: 1, duration: 0.6 }, "<");
 	};
 
 	const toggleMusic = () => {
@@ -135,7 +123,7 @@ const Interface = () => {
 			)}
 
 			<div className="p-5 absolute inset-0 select-none pointer-events-none">
-				<div className="animate-music-toggle absolute top-5 right-5 pointer-events-auto opacity-0">
+				<div className="animate-nav absolute top-5 right-5 pointer-events-auto opacity-0">
 					<button
 						type="button"
 						className={`hover:bg-white hover:text-mauve-900 hover:cursor-pointer
@@ -146,30 +134,31 @@ const Interface = () => {
 					</button>
 				</div>
 
-				{!hideHeader && (
-					<div className="animate-header absolute top-5 left-5 opacity-0">
-						<p className="text-9xl">Hubert Yu</p>
-						<p className="text-4xl">Software Engineer</p>
+				<div className="flex flex-col justify-between items-center h-full p-2">
+					<nav className="animate-nav top-5 flex flex-row gap-15 pointer-events-auto opacity-0">
+						<NavLink label="About Me" contentId="about_me" />
+						<NavLink label="Experience" contentId="experience" />
+						<NavLink label="Projects" contentId="projects" />
+						<NavLink label="Contact" contentId="contact" />
+					</nav>
+
+					{!hideHeader && (
+						<div className="animate-header opacity-0 flex flex-col items-center">
+							<p className="text-[11vw]">Hubert Yu</p>
+							<p className="text-4xl">Software Engineer</p>
+						</div>
+					)}
+
+					{!hideContent && (
+						<div className="animate-content absolute top-20">
+							<ContentView />
+						</div>
+					)}
+
+					<div className="animate-header text-right pointer-events-auto opacity-0">
+						<p>Created by Hubert Yu | Psalm 19:1</p>
 					</div>
-				)}
-
-				<nav className="animate-nav absolute bottom-5 left-5 flex flex-col gap-5 pointer-events-auto opacity-0">
-					<NavLink label="About Me" contentId="about_me" />
-					<NavLink label="Experience" contentId="experience" />
-					<NavLink label="Projects" contentId="projects" />
-					<NavLink label="Contact" contentId="contact" />
-				</nav>
-
-				<div className="animate-credits absolute bottom-5 right-5 text-right pointer-events-auto opacity-0">
-					<p>Created by Hubert Yu</p>
-					<p>Psalms 19:1</p>
 				</div>
-
-				{!hideContent && (
-					<div className="animate-content flex justify-center items-center">
-						<ContentView />
-					</div>
-				)}
 			</div>
 		</div>
 	);

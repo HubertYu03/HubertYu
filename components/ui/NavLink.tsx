@@ -25,7 +25,7 @@ const NavLink = ({ label, contentId }: NavLinkProps) => {
 		<button
 			type="button"
 			onClick={handleClick}
-			className={`hover:bg-white hover:text-mauve-900 hover:cursor-pointer text-4xl transition 
+			className={`hover:bg-white hover:text-mauve-900 hover:cursor-pointer text-3xl transition 
 						ease-in w-fit p-1 ${contentId === currentContent && "bg-white text-mauve-900"}`}
 		>
 			{label}

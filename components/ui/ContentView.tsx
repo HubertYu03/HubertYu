@@ -39,7 +39,7 @@ const ContentView = () => {
 					<X />
 				</button>
 			</div>
-			<div ref={contentRef}>
+			<div ref={contentRef} className="overflow-y-auto h-[80vh]">
 				{contentId === "about_me" && <AboutView />}
 				{contentId === "experience" && <ExperienceView />}
 				{contentId === "projects" && <ProjectsView />}

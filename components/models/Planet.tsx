@@ -4,7 +4,7 @@ import * as THREE from "three";
 import AtmosphereMesh from "./AtmosphereMesh";
 import { getRandomPlanetTexture } from "@/lib/utils";
 
-const planetPosition = new THREE.Vector3(1.5, -1, 3.5);
+const planetPosition = new THREE.Vector3(1.75, -0.75, 3.5);
 
 const Planet = () => {
 	const planetRef = useRef<THREE.Mesh>(null);
@@ -14,7 +14,7 @@ const Planet = () => {
 
 	useFrame(() => {
 		if (planetRef.current) {
-			planetRef.current.rotation.y += 0.0001;
+			planetRef.current.rotation.y += 0.00025;
 		}
 	});
 
