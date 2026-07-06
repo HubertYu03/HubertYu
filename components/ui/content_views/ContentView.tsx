@@ -3,10 +3,10 @@ import { useContent } from "@/lib/store/ContentStore";
 import { X } from "lucide-react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import AboutView from "./content_views/AboutView";
-import ExperienceView from "./content_views/ExperienceView";
-import ProjectsView from "./content_views/ProjectsView";
-import ContactView from "./content_views/ContactView";
+import AboutView from "./AboutView";
+import ExperienceView from "./ExperienceView";
+import ProjectsView from "./ProjectsView";
+import ContactView from "./ContactView";
 
 const ContentView = () => {
 	const contentRef = useRef<HTMLDivElement>(null);
@@ -29,7 +29,7 @@ const ContentView = () => {
 	};
 
 	return (
-		<div className="border-2 bg-mauve-900/75 p-5 w-3xl pointer-events-auto">
+		<div className="border-2 bg-mauve-900/75 p-5 w-5xl pointer-events-auto">
 			<div className="flex justify-end">
 				<button
 					type="button"
@@ -39,7 +39,7 @@ const ContentView = () => {
 					<X />
 				</button>
 			</div>
-			<div ref={contentRef} className="overflow-y-auto h-[80vh]">
+			<div ref={contentRef} className="h-[80vh]">
 				{contentId === "about_me" && <AboutView />}
 				{contentId === "experience" && <ExperienceView />}
 				{contentId === "projects" && <ProjectsView />}

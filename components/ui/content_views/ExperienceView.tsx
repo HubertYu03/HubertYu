@@ -13,7 +13,7 @@ const ExperienceView = () => {
 
 			<div className="flex flex-col gap-10">
 				{experiences.map((experience) => (
-					<div key={experience.company} className="flex flex-row justify-between gap-5">
+					<div key={experience.company} className="flex flex-row gap-2">
 						<div className="flex flex-col gap-2 w-1/3">
 							<div className="text-2xl">{experience.company}</div>
 							<IconLabel>
@@ -29,9 +29,7 @@ const ExperienceView = () => {
 
 						<div className="flex flex-col gap-2 w-2/3 mt-1">
 							{experience.bulletPoints.map((point) => (
-								<div key={point} className="text-sm">
-									- {point}
-								</div>
+								<div key={point}>➜ {point}</div>
 							))}
 						</div>
 					</div>

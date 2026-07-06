@@ -6,7 +6,7 @@ import useSound from "use-sound";
 import NavLink from "../ui/NavLink";
 import { Volume2, VolumeOff } from "lucide-react";
 import { useContent } from "@/lib/store/ContentStore";
-import ContentView from "../ui/ContentView";
+import ContentView from "../ui/content_views/ContentView";
 
 gsap.registerPlugin(useGSAP);
 

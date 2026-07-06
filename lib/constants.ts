@@ -1,3 +1,5 @@
+import TheVoyageImage from "../public/images/theVoyage.png";
+
 export const experiences = [
 	{
 		jobTitle: "Software Engineer",
@@ -31,5 +33,39 @@ export const experiences = [
             interface that communicates with the backend API to fetch and 
             display weather predictions.`,
 		],
+	},
+];
+
+export const projects = [
+	{
+		title: "The Voyage",
+		link: "https://the-voyage-seven.vercel.app/",
+		github: "https://github.com/HubertYu03/TheVoyage",
+		image: TheVoyageImage,
+		date: "Nov 2025",
+		technologies: [
+			{ name: "React", icon: "/icons/react.svg" },
+			{ name: "Typescript", icon: "/icons/typescript.svg" },
+			{ name: "React Three Fiber", icon: "/icons/threejs.svg" },
+			{ name: "GSAP", icon: "/icons/gsap.svg" },
+			{ name: "Tailwind", icon: "/icons/tailwind.svg" },
+		],
+		description: "",
+	},
+	{
+		title: "Eventura Activity App",
+		link: null,
+		github: "https://github.com/HubertYu03/EventuraApp",
+		image: TheVoyageImage,
+		date: "Nov 2024 - Dec 2024",
+		technologies: [
+			{ name: "React Native", icon: "/icons/react.svg" },
+			{ name: "Javascript", icon: "/icons/javascript.svg" },
+			{ name: "Python", icon: "/icons/python.svg" },
+			{ name: "Flask", icon: "/icons/flask.svg" },
+			{ name: "CSS", icon: "/icons/css.svg" },
+			{ name: "SQL", icon: "/icons/sql.svg" },
+		],
+		description: "",
 	},
 ];
